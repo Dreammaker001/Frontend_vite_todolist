@@ -7,7 +7,7 @@
   <button @click="tambahAll">Tambah All</button> -->
 
   <div>
-    <div>Selamat Datang</div>
+    <div><h1>Berikut adalah daftar tugas kita</h1></div>
     <ul>
       <!-- v-for adalah perulangan -->
       <li v-for="item in todos">{{item.list}} <button @click="hapus(item.id)">X</button></li>
@@ -26,9 +26,9 @@ import axios from 'axios'
           nilai2 : 0,
           nilai3: 0,
           todos: [
-            {desc: 'Makan Durian'},
-            {desc: 'Makan Tempe'},
-            {desc: 'Coding JS'}
+            // {desc: 'Makan Durian'},
+            // {desc: 'Makan Tempe'},
+            // {desc: 'Coding JS'}
           ],
           text: ""
         }
