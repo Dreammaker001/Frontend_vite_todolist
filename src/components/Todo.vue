@@ -18,6 +18,7 @@
 </template>
 
 <script>
+let ws
 import axios from 'axios'
   export default{
       data : function(){
@@ -34,24 +35,50 @@ import axios from 'axios'
         }
       },
       created: function(){
-        // alert("hai")
-        axios.get('http://localhost:3000/todo')
+        if (ws) {
+          ws.onerror = ws.onopen = ws.onclose = null;
+          ws.close();
+        }
+
+        ws = new WebSocket('ws://localhost:3000/');
+        ws.onopen = () => {
+          console.log('Connection opened!');
+        }
+        ws.onmessage = ({ data }) =>{ 
+          var hasil = Object.values(JSON.parse(data))
+          this.todos = hasil[0]
+        }
+        ws.onclose = function() {
+          ws = null;
+        }
+
+        var username = localStorage.getItem('user')
+        var pass = localStorage.getItem('pass')
+        axios.get('http://localhost:3000/todo', {headers:{username: username, password:pass}})
         .then((result)=>{
           this.todos = result.data
+          // ws.send(JSON.stringify(result))
         })
+
       },
       methods: {
         tambah: function(){
           let newItem = {deskripsi:this.text}
-          axios.post('http://localhost:3000/todo', newItem)
-            .then((res)=>{
-              this.todos.push({list:this.text})
+          var username = localStorage.getItem('user')
+          var pass = localStorage.getItem('pass')
+          axios.post('http://localhost:3000/todo', newItem, {headers:{username: username, password:pass}})
+            .then((result)=>{
+              // this.todos = result.data
+              ws.send(JSON.stringify(result))
             })
         },
         hapus : function(id){
-          axios.delete(`http://localhost:3000/todo/${id}`)
-          .then(()=>{
-            location.reload()
+          var username = localStorage.getItem('user')
+          var pass = localStorage.getItem('pass')
+          axios.delete(`http://localhost:3000/todo/${id}`, {headers:{username: username, password:pass}})
+          .then((result)=>{
+            // location.reload()
+            ws.send(JSON.stringify(result))
           })
         }
       }

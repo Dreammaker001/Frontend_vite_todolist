@@ -1,6 +1,15 @@
 <template>
-  <Todo msg="Hello Vue 3 + Vite" />
-  <Users/>
+  <router-link to="/">Halaman Auth</router-link>
+  &nbsp;
+  <router-link to="/todo">Halaman Todo</router-link>
+  &nbsp;
+  <router-link to="/users" >Halman Users</router-link>
+
+  <!-- <Todo msg="Hello Vue 3 + Vite" />
+  <Users/> -->
+
+  <!-- cek file main.js untuk view router-->
+  <router-view></router-view> 
 </template>
 
 <script setup>

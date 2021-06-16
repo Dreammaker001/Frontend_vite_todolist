@@ -1,0 +1,19 @@
+.root{
+    margin: 15px 0px 0px 15px;
+    border: 1px solid black;
+    width: 300px;
+    padding: 10px;
+}
+.input{
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+.password{
+    margin-left: 13px;
+}
+.button{
+    margin-top: 10px;
+}
+.hapus{
+    margin-left: 10px;
+}
